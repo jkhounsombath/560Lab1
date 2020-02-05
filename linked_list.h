@@ -22,5 +22,6 @@ class linkedList
 		bool find(int value);
 		void FindNext(int value);
 		void print();
+		void reverseList();
 };
 #endif

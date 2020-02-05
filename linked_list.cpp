@@ -106,10 +106,23 @@ void linkedList::remove(int index)
 
 void linkedList::deleteDuplicates()
 {
-	int this_index= 0;
+	int outerIndex= 0;
+	int innerIndex= 0;
+	Node* front= m_front;
+	Node* tempPtr= front->getNext();
 	while(front != nullptr)
 	{
-		
+		tempPtr= front->getNext();
+		outerIndex++;
+		while(tempPtr != nullptr)
+		{
+			innerIndex= outerIndex+1;
+			if(tempPtr->getEntry() == front->getEntry())
+			{
+				remove(innerIndex);
+			}
+		}
+	}
 }
 
 bool linkedList::find(int value)
@@ -156,5 +169,29 @@ void linkedList::FindNext(int value)
 
 void linkedList::print()
 {
+	Node* front = m_front;
+	while(front != nullptr)
+	{
+		std::cout << "Here is your linked list: ";
+		std::cout << front->getEntry() << std::endl;
+		front= front->getNext();
+	}
+}
 
+void linkedList::reverseList()
+{
+	Node* next= nullptr;
+	Node* prev= nullptr;
+	Node* curr= m_front;
+	while(curr != m_front)
+	{
+		next= curr->getNext();
+		curr->setNext(prev);
+		prev = curr;
+		curr = next;
+	}
+	m_front = prev;
+	next= nullptr;
+	prev= nullptr;
+	curr= nullptr;
 }
