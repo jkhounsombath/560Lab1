@@ -8,7 +8,7 @@ linkedList::linkedList()
 linkedList::~linkedList()
 {
 	Node* temp= nullptr;
-	for(int i=0 ; i < getLength() ; i++)
+	while(m_front!= nullptr)
 	{
 		temp= m_front;
 		m_front= m_front->getNext();
@@ -54,7 +54,6 @@ void linkedList::insert(int newEntry, int index)
 			temp= new Node(newEntry);
 			temp->setNext(m_front);
 			m_front= temp;
-			temp= nullptr;
 		}
 		else
 		{
@@ -64,7 +63,7 @@ void linkedList::insert(int newEntry, int index)
 				prevPtr = prevPtr->getNext();
 			}
 			temp= new Node(newEntry);
-			temp->setNext(prevPtr->getNext());
+			temp->setNext(prevPtr->getNext(	));
 			prevPtr->setNext(temp);
 		}
 	}
@@ -105,7 +104,6 @@ void linkedList::remove(int index)
 		{
 			temp= m_front;
 			m_front= m_front->getNext();
-			delete temp;
 		}
 		else
 		{
@@ -117,7 +115,6 @@ void linkedList::remove(int index)
 			}
 			temp= prevPtr->getNext();
 			prevPtr->setNext(temp->getNext());
-			delete temp;
 		}
 	}
 	else

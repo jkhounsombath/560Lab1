@@ -6,6 +6,7 @@ Executive::Executive(std::string fileName)
 	int value;
 	while(inFile>>value)
 	{
+		std::cout<<value<<std::endl;
 		List.insert(value, 1);
 	}
 }
