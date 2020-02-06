@@ -3,15 +3,16 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "linked_list.h"
 
 
 class Executive
 {
 	private:
-		linkedList list;
+		linkedList List;
 	public:
-		Executive();
+		Executive(std::string fileName);
 		~Executive();
 		void run();
 };

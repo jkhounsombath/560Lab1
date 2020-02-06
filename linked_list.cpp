@@ -170,28 +170,25 @@ void linkedList::FindNext(int value)
 void linkedList::print()
 {
 	Node* front = m_front;
+	std::cout << "Here is your linked list: ";
 	while(front != nullptr)
 	{
-		std::cout << "Here is your linked list: ";
-		std::cout << front->getEntry() << std::endl;
+		std::cout << front->getEntry() << " -> ";
 		front= front->getNext();
 	}
+	std::cout <<"NULL\n";
 }
 
 void linkedList::reverseList()
 {
-	Node* next= nullptr;
-	Node* prev= nullptr;
-	Node* curr= m_front;
-	while(curr != m_front)
+	Node* front = m_front;
+	for(int i=getLength(); i>0; i--)
 	{
-		next= curr->getNext();
-		curr->setNext(prev);
-		prev = curr;
-		curr = next;
+		for(int j=0; j<i-1; i++)
+		{
+			front=front->getNext();
+		}
+		std::cout << front->getEntry() <<" -> ";
 	}
-	m_front = prev;
-	next= nullptr;
-	prev= nullptr;
-	curr= nullptr;
+	std::cout<< "NULL\n";
 }
