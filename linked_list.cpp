@@ -74,6 +74,28 @@ void linkedList::insert(int newEntry, int index)
 	}
 }
 
+void linkedList::removeFromList(int value)
+{
+	if(find(value))
+	{
+		int target= 0;
+		Node* front= m_front;
+		for(int i=1; i<=getLength(); i++)
+		{
+			if(front->getEntry() == value)
+			{
+				target = i;
+			}
+			front= front->getNext();
+		}
+		remove(target);
+	}
+	else
+	{
+		std::cout <<"Value is not in the list\n";
+	}
+}
+
 void linkedList::remove(int index)
 {
 	Node* temp= nullptr;
@@ -106,23 +128,27 @@ void linkedList::remove(int index)
 
 void linkedList::deleteDuplicates()
 {
-	int outerIndex= 0;
-	int innerIndex= 0;
 	Node* front= m_front;
-	Node* tempPtr= front->getNext();
-	while(front != nullptr)
+	Node* second= nullptr;
+	Node* deleteThis= nullptr;
+	while (front != nullptr && front->getNext() != nullptr)
 	{
-		tempPtr= front->getNext();
-		outerIndex++;
-		while(tempPtr != nullptr)
+		second = front;
+		while (second->getNext() != nullptr)
 		{
-			innerIndex= outerIndex+1;
-			if(tempPtr->getEntry() == front->getEntry())
+			if(front->getEntry() == second->getNext()->getEntry())
 			{
-				remove(innerIndex);
+				deleteThis= second->getNext();
+				second->setNext((second->getNext())->getNext());
+				delete deleteThis;
+			}
+			else
+			{
+				second= second->getNext();
 			}
 		}
-	}
+		front= front->getNext();
+	}		
 }
 
 bool linkedList::find(int value)
@@ -153,10 +179,12 @@ void linkedList::FindNext(int value)
 			if(front->getNext() != nullptr)
 			{
 				std::cout<<"Here is the next value from " << value << ": " << (front->getNext())->getEntry() << "\n";
+				return;
 			}
 			else
 			{
 				std::cout<<"The value is the last element in the list!\n";
+				return;
 			}
 		}
 		else
@@ -181,14 +209,31 @@ void linkedList::print()
 
 void linkedList::reverseList()
 {
-	Node* front = m_front;
-	for(int i=getLength(); i>0; i--)
+	std::cout<<"Here is your reversed list: ";
+	reverseHelper(m_front);
+	std::cout<<"NULL\n";
+}
+
+void linkedList::reverseHelper(Node* front)
+{
+	if(front != nullptr)
 	{
-		for(int j=0; j<i-1; i++)
+		reverseHelper(front->getNext());
+		std::cout<<front->getEntry()<<" -> ";
+	}
+}
+
+void linkedList::findAt(int index)
+{
+	if(index <= getLength() && index > 0)
+	{
+		Node* front= m_front;
+		for(int i=2; i<=index; i++)
 		{
 			front=front->getNext();
 		}
-		std::cout << front->getEntry() <<" -> ";
+		std::cout<<"The node at "<<index<<" is: "<<front->getEntry()<<std::endl;
 	}
-	std::cout<< "NULL\n";
+	else
+		std::cout<<"The index is invalid.\n";
 }
